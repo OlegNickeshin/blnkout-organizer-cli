@@ -9,19 +9,22 @@ class Organizer:
         if not os.path.isdir(self.pathway):
             raise NotADirectoryError(f"Invalid path: {self.pathway}")
 
-        if not self.file_names():
-            raise FileNotFoundError("No files found in the specified directory.")
-
     def list_all(self):
-        return [name for name in os.listdir(self.pathway)]
+        return [
+            name for name in os.listdir(self.pathway)
+        ]
 
     def list_dir(self):
-        return [name for name in os.listdir(self.pathway)
-                if os.path.isfile(os.path.join(self.pathway, name))]
+        return [
+            name for name in os.listdir(self.pathway)
+            if os.path.isfile(os.path.join(self.pathway, name))
+        ]
 
     def list_dir_folders(self):
-        return [name for name in os.listdir(self.pathway)
-                if os.path.isdir(os.path.join(self.pathway, name))]
+        return [
+            name for name in os.listdir(self.pathway)
+            if os.path.isdir(os.path.join(self.pathway, name))
+        ]
 
     def folder_names(self):
         extensions = set()
@@ -45,6 +48,7 @@ class Organizer:
             ext: os.path.join(self.pathway, ext)
             for ext in self.folder_names()
         }
+
         for name in self.file_names():
             ext = os.path.splitext(name)[1].lstrip('.')
             if ext in ext_to_folder:
@@ -72,11 +76,12 @@ class Organizer:
         return large_files
 
     def sort_by_size(self):
-        return sorted(
+        sorted_files = sorted(
             self.file_names(),
             key=lambda x: os.path.getsize(os.path.join(self.pathway, x)),
             reverse=True
         )
+        return sorted_files        
 
     def get_file_info(self, name):
         full_path = os.path.join(self.pathway, name)
@@ -96,9 +101,6 @@ class Organizer:
             full_path = os.path.join(self.pathway, name)
             mod_time = os.stat(full_path).st_mtime
             if mod_time >= cutoff_time:
-                recent_files.append((
-                    name,
-                    time.ctime(mod_time),
-                    round(os.stat(full_path).st_size / (1024 * 1024), 2)
-                ))
+                recent_files.append((name, time.ctime(mod_time), round(os.stat(full_path).st_size / (1024 * 1024), 2)))
         return recent_files
+
