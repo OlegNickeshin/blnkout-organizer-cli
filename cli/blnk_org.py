@@ -1,7 +1,7 @@
 def main():
     import os
     import argparse
-    from organizer import Organizer
+    from blnk_org.organizer import Organizer
     from rich import print
     from rich.console import Console
     from rich.table import Table
