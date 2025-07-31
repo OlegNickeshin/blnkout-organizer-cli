@@ -13,7 +13,7 @@ A command-line tool to sort, view, and manage files in a folder.
 ## Install
 
 ```bash
-git clone https://github.com/yourname/blnkout-organizer-cli.git
+git clone https://github.com/olegnickeshin/blnkout-organizer-cli.git
 cd blnkout-organizer-cli
 pip install .
 ```
